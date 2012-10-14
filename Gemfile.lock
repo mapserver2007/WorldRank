@@ -1,10 +1,14 @@
 GEM
   remote: http://rubygems.org/
   specs:
+    active_support (3.0.0)
+      activesupport (= 3.0.0)
+    activesupport (3.0.0)
     clockwork (0.4.1)
       tzinfo
     domain_name (0.5.4)
       unf (~> 0.0.3)
+    i18n (0.6.0)
     log4ever (0.0.5)
       log4r (>= 1.1.10)
     log4r (1.1.10)
@@ -31,6 +35,8 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  active_support
   clockwork
+  i18n
   log4ever
   mechanize

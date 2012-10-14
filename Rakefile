@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-require 'worldrank'
+require File.dirname(__FILE__) + '/worldrank'
 require 'rspec/core/rake_task'
 require 'yaml'
 
