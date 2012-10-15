@@ -15,7 +15,7 @@ class Crawler
     begin
       MyLogger.info("test")
     rescue => e
-      p e.message
+      p e.backtrace
     end
   end
   
