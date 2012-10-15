@@ -53,6 +53,7 @@ class MyLogger
   end
   
   def self.logger
+    p @auth_token
     raise "auth token is empty." if @auth_token.nil?
     return @logger unless @logger.nil?
     @logger = Log4r::Logger.new(name)
