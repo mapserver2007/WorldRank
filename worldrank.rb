@@ -16,8 +16,6 @@ class Crawler
   
   def run
     url = URL % username
-    p url
-    begin
     agent = Mechanize.new
     agent.read_timeout = 30
     agent.user_agent_alias = "Windows IE 8"
@@ -26,10 +24,9 @@ class Crawler
     rank = table[0].search('td[class="rank"]').text.strip
     distance = table[0].search('td[class="distance"]').text.strip
     runners = table[0].search('td[class="actionmenu"]').text.strip
-    "rank: #{rank}, distance: #{distance}, runners: #{runners}"
-    rescue => e
-      e.message
-    end
+    ttt = "rank: #{rank}, distance: #{distance}, runners: #{runners}"
+    p ttt
+    ttt
   end
   
   private
