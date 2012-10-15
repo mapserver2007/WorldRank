@@ -12,6 +12,11 @@ class Crawler
   
   def initialize
     MyLogger.auth_token = evernote_auth_token
+    begin
+      MyLogger.info("test")
+    rescue => e
+      p e.message
+    end
   end
   
   def run
@@ -25,7 +30,6 @@ class Crawler
     distance = table[0].search('td[class="distance"]').text.strip
     runners = table[0].search('td[class="actionmenu"]').text.strip
     result = "rank: #{rank}, distance: #{distance}, runners: #{runners}"
-    p result
     MyLogger.info(result)
   end
   
