@@ -24,7 +24,8 @@ class Crawler
     rank = table[0].search('td[class="rank"]').text.strip
     distance = table[0].search('td[class="distance"]').text.strip
     runners = table[0].search('td[class="actionmenu"]').text.strip
-    "rank: #{rank}, distance: #{distance}, runners: #{runners}"
+    result = "rank: #{rank}, distance: #{distance}, runners: #{runners}"
+    MyLogger.info(result)
   end
   
   private
@@ -82,6 +83,5 @@ end
 
 
 include Clockwork
-
-handler {|job| MyLogger.info("test")}
+handler {|job| job.run}
 every(1.hour, WorldRank::Crawler.new)
