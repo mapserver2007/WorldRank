@@ -16,6 +16,8 @@ class Crawler
   
   def run
     url = URL % username
+    p url
+    begin
     agent = Mechanize.new
     agent.read_timeout = 30
     agent.user_agent_alias = "Windows IE 8"
@@ -25,6 +27,9 @@ class Crawler
     distance = table[0].search('td[class="distance"]').text.strip
     runners = table[0].search('td[class="actionmenu"]').text.strip
     "rank: #{rank}, distance: #{distance}, runners: #{runners}"
+    rescue => e
+      e.message
+    end
   end
   
   private
@@ -43,6 +48,8 @@ class Crawler
   end
 end
 
+end
+
 class MyLogger
   def self.method_missing(name, *args)
     if /(.*?)=$/ =~ name
@@ -53,7 +60,6 @@ class MyLogger
   end
   
   def self.logger
-    p @auth_token
     raise "auth token is empty." if @auth_token.nil?
     return @logger unless @logger.nil?
     @logger = Log4r::Logger.new(name)
@@ -79,10 +85,8 @@ class MyLogger
   end
 end
 
-end
 
 include Clockwork
-include WorldRank
 
 handler {|job| MyLogger.info(job.run)}
-every(1.hour, Crawler.new)
+every(1.hour, WorldRank::Crawler.new)
