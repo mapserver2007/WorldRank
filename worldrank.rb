@@ -12,11 +12,6 @@ class Crawler
   
   def initialize
     MyLogger.auth_token = evernote_auth_token
-    begin
-      MyLogger.info("test")
-    rescue => e
-      p e.backtrace
-    end
   end
   
   def run
@@ -85,7 +80,6 @@ class MyLogger
     @logger
   end
 end
-
 
 include Clockwork
 handler {|job| job.run}
