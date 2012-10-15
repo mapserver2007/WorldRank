@@ -83,4 +83,4 @@ end
 
 include Clockwork
 handler {|job| job.run}
-every(3.minutes, WorldRank::Crawler.new)
+every(1.hour, WorldRank::Crawler.new)
