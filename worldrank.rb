@@ -24,9 +24,7 @@ class Crawler
     rank = table[0].search('td[class="rank"]').text.strip
     distance = table[0].search('td[class="distance"]').text.strip
     runners = table[0].search('td[class="actionmenu"]').text.strip
-    ttt = "rank: #{rank}, distance: #{distance}, runners: #{runners}"
-    p ttt
-    ttt
+    "rank: #{rank}, distance: #{distance}, runners: #{runners}"
   end
   
   private
@@ -57,8 +55,8 @@ class MyLogger
   end
   
   def self.logger
-    raise "auth token is empty." if @auth_token.nil?
     return @logger unless @logger.nil?
+    raise "auth token is empty." if @auth_token.nil?
     @logger = Log4r::Logger.new(name)
     @logger.level = Log4r::INFO
     formatter = Log4r::PatternFormatter.new(
@@ -85,5 +83,5 @@ end
 
 include Clockwork
 
-handler {|job| MyLogger.info(job.run)}
+handler {|job| MyLogger.info("test")}
 every(1.hour, WorldRank::Crawler.new)
