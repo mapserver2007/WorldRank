@@ -3,6 +3,16 @@ require File.dirname(__FILE__) + '/worldrank'
 require 'rspec/core/rake_task'
 require 'yaml'
 
+config_files = [
+  YAML.load_file(File.dirname(__FILE__) + "/config/evernote.auth.yml"),
+  YAML.load_file(File.dirname(__FILE__) + "/config/username.yml")
+]
+
+config = {}
+config_files.each do |file|
+  file.each {|key, value| config[key] = value}
+end
+
 task:default => [:spec, :github_push, :heroku_deploy]
 
 Rspec::Core::RakeTask.new(:spec) do |spec|
@@ -18,12 +28,15 @@ task :heroku_deploy => [:github_push] do
   sh 'git push heroku master'
 end
 
-task :heroku_env => [:timezone] do
-  evernote_config = YAML.load_file(File.dirname(__FILE__) + "/config/evernote.auth.yml")
-  username_config = YAML.load_file(File.dirname(__FILE__) + "/config/username.yml")
-  config = evernote_config.merge(username_config)
+task :heroku_env => [:heroku_env_clean, :timezone] do
   config.each do |key, value|
-    sh "heroku config:add #{key}='#{value}'"
+    sh "heroku config:add #{key}=#{value}"
+  end
+end
+
+task :heroku_env_clean do
+  config.each do |key, value|
+    sh "heroku config:remove #{key}"
   end
 end
 
