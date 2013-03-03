@@ -43,3 +43,11 @@ end
 task :timezone do
   sh "heroku config:add TZ=Asia/Tokyo"
 end
+
+task :heroku_start do
+  sh "heroku scale clock=1"
+end
+
+task :heroku_stop do
+  sh "heroku scale clock=0"
+end
